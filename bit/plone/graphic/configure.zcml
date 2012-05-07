@@ -1,0 +1,38 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+           i18n_domain="bit.plone.graphic"
+           >
+
+  <include package="plone.namedfile" />
+  <include package="plone.formwidget.namedfile" />
+
+  <include file="./permissions.zcml" />
+
+  <include package=".cp" />
+
+  <adapter 
+     factory=".graphicalimage.GraphicalImage"
+     for="*"
+     />
+
+  <adapter 
+     factory=".graphicalimage.Thumbnailer"
+     for="*"
+     />
+
+  <adapter factory='.indexers.getGraphics' name='getGraphics' />
+  <adapter factory='.indexers.getThumbnail' name='Thumbnail' />
+
+  <include package=".adapters" />
+  <include package=".browser" />
+
+  <include file="./profiles.zcml" />  
+
+
+
+
+
+</configure>
+

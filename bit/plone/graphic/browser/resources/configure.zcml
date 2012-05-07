@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:browser="http://namespaces.zope.org/browser"
+	   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+	   i18n_domain="bit.plone.graphic"
+	   >
+
+  <browser:page
+      for="*"
+      name="other_graphics.css"
+      permission="zope.Public"
+      template="./css/other_graphics.css"
+    />
+
+</configure>

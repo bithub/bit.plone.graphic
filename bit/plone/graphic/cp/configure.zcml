@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="bit.plone.graphic">
+
+    <adapter
+	for="*"
+	factory=".graphic_cp.GraphicCP"
+	permission="cmf.ManagePortal"
+	name="graphic_cp"
+	/>
+
+</configure>

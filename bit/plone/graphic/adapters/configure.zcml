@@ -1,0 +1,60 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:browser="http://namespaces.zope.org/browser"
+	   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+	   i18n_domain="bit.plone.graphic"
+	   >
+
+  <adapter for="zope.annotation.interfaces.IAnnotatable"
+           provides="bit.plone.graphic.browser.interfaces.IGraphicsForm"
+           factory=".GraphicsForm"
+	   />
+
+  <adapter for="zope.annotation.interfaces.IAnnotatable"
+           provides="bit.plone.graphic.interfaces.ICustomGraphic"
+           factory=".CustomGraphic"
+	   />
+
+  <adapter for="zope.annotation.interfaces.IAnnotatable"
+           provides="bit.plone.graphic.interfaces.IGraphical"
+           factory=".Graphical"
+           />
+
+  <adapter for="Products.ATContentTypes.interface.image.IATImage"
+           provides="bit.plone.graphic.interfaces.IGraphical"
+           factory=".GraphicalImage"
+           />
+
+  <adapter for="Products.ATContentTypes.interface.news.IATNewsItem"
+           provides="bit.plone.graphic.interfaces.IGraphical"
+           factory=".GraphicalNewsItem"
+           />
+
+<!--
+
+  <adapter for="p4a.subtyper.interfaces.ISubtyped"
+	   provides="bit.plone.graphic.interfaces.IIconic"
+	   factory=".SubtypeIcon"
+	   />
+
+  <adapter  
+     factory=".copier.GraphicsCopier"
+     for="Products.ATContentTypes.interfaces.IATContentType
+	  Products.ATContentTypes.interfaces.IATContentType"
+     name="graphics"
+     />
+
+  <adapter for="p4a.video.interfaces.IVideoEnhanced"
+           provides="bit.plone.graphic.interfaces.IGraphical"
+           factory=".IAGraphicalVideoFile"
+           />
+
+
+  <adapter for="p4a.plonevideoembed.interfaces.IVideoLinkEnhanced"
+           provides="bit.plone.graphic.interfaces.IGraphical"
+           factory=".IAGraphicalVideoFile"
+           />  
+
+-->
+
+</configure>

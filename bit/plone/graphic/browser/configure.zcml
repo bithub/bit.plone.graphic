@@ -1,0 +1,41 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:browser="http://namespaces.zope.org/browser"
+	   xmlns:z3c="http://namespaces.zope.org/z3c"	
+           xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+           i18n_domain="bit.plone.graphic"
+           >
+  <include package=".resources" />  
+
+  <browser:page
+     for="*"
+     name="manage-graphics"
+     class=".graphicsform.GraphicsFormView"
+     permission="bit.plone.graphic.ManageGraphics"
+     />
+  
+  <browser:page
+     name="custom_graphic"
+     for="bit.plone.graphic.interfaces.IGraphicallyCustomized"
+     class=".traversal.CustomGraphicTraverser"
+     permission="zope2.View"
+     />
+
+  <browser:page
+      for="*"
+      name="reindex_graphics"
+      class=".graphics.ReindexGraphicsView"
+      attribute="reindex_graphics"
+      permission="cmf.ManagePortal"
+      />  
+
+  <browser:page
+      for="*"
+      name="reindex_graphics_confirm"
+      class=".graphics.ReindexGraphicsView"
+      template="./reindex_graphics.pt"
+      permission="cmf.ManagePortal"
+      /> 
+
+</configure>
+
