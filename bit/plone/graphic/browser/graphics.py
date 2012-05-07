@@ -1,5 +1,7 @@
 import os
 
+from zope.annotation.interfaces import IAnnotations
+
 from Products.Five import BrowserView as FiveView
 
 
@@ -20,6 +22,22 @@ class ReindexGraphicsView(FiveView):
             try:
                 obj = self.context.restrictedTraverse(path)
                 print 'reindexing graphics for %s' % path
+                anno = IAnnotations(obj)
+
+                if 'an.other.graphic.Graphical' in anno.keys():
+                    graphic = anno['an.other.graphic.Graphical']
+                    anno['bit.plone.graphic.Graphical'] = graphic
+                    del anno['an.other.graphic.Graphical']
+
+                if 'an.other.graphic.CustomGraphic' in anno.keys():
+                    graphic = anno['an.other.graphic.CustomGraphic']
+                    anno['bit.plone.graphic.CustomGraphic'] = graphic
+                    del anno['an.other.graphic.CustomGraphic']
+
+                elif 'things.republic.interfaces.IGraphicalRepresentation' in anno.keys():
+                    graphic = anno['things.republic.interfaces.IGraphicalRepresentation']
+                    anno['bit.plone.graphic.Graphical'] = graphic
+                    del anno['things.republic.interfaces.IGraphicalRepresentation']
                 obj.reindexObject(idxs=['getGraphics', 'getIcon', 'Thumbnail'])
             except:
                 print 'FAIL: %s' % path

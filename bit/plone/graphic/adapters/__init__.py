@@ -19,8 +19,7 @@ from bit.plone.graphic.interfaces import\
     IGraphicalRepresentation, ICustomGraphic, IGraphicallyCustomized
 from bit.plone.graphic.browser.interfaces import IGraphicAssociation
 
-ANNOGRAPHICS = 'things.republic.interfaces.IGraphicalRepresentation'
-ANNO_SUMMARY = 'things.republic.adapters.Summarized'
+ANNOGRAPHICS = 'bit.plone.graphic.Graphical'
 
 
 class GraphicAssociation(object):
@@ -58,7 +57,7 @@ class CustomGraphic(object):
 
     def getImage(self, name=None):
         imagedict = IAnnotations(
-            self.context).get('an.other.graphic.CustomGraphic')
+            self.context).get('bit.plone.graphic.CustomGraphic')
         if not imagedict:
             return
         image = imagedict.get(name or 'original')
@@ -116,16 +115,16 @@ class CustomGraphic(object):
 
         if not image and IGraphicallyCustomized.providedBy(self.context):
             noLongerProvides(self.context, IGraphicallyCustomized)
-            del IAnnotations(self.context)['an.other.graphic.CustomGraphic']
+            del IAnnotations(self.context)['bit.plone.graphic.CustomGraphic']
         if image and not IGraphicallyCustomized.providedBy(self.context):
             alsoProvides(self.context, IGraphicallyCustomized)
         if image:
             IAnnotations(
-                self.context)['an.other.graphic.CustomGraphic']\
+                self.context)['bit.plone.graphic.CustomGraphic']\
                 = PersistentDict()
             IAnnotations(
                 self.context).get(
-                'an.other.graphic.CustomGraphic')['original']\
+                'bit.plone.graphic.CustomGraphic')['original']\
                 = image
 
 
@@ -164,8 +163,7 @@ class Graphical(object):
 
     def getRawGraphic(self, graphicid, acquire=False, expand=True):
         graphics = IAnnotations(
-            self.context).get('an.other.graphic.Graphical')\
-            or IAnnotations(self.context).get(ANNOGRAPHICS)
+            self.context).get('bit.plone.graphic.Graphical')
         graphic = None
         if graphics:
             graphic = graphics.get(graphicid) or None
@@ -182,8 +180,7 @@ class Graphical(object):
     def graphicKeys(self, expand=True):
         anno = IAnnotations(self.context)
         graphics = anno.get(
-            'an.other.graphic.Graphical')\
-            or anno.get(ANNOGRAPHICS) or anno.get('GRAPHICS')
+            'bit.plone.graphic.Graphical')
         keys = set()
         if graphics:
             if 'base' in graphics.keys() and expand:
@@ -209,19 +206,19 @@ class Graphical(object):
 
     def clearGraphics(self):
         anno = IAnnotations(self.context)
-        anno['an.other.graphic.Graphical'] = {}
+        anno['bit.plone.graphic.Graphical'] = {}
         self.context.reindexObject(idxs=['getGraphics'])
 
     def setGraphic(self, graphic, path=None):
         #        print 'adding graphic %s as %s to %s'
         # %(graphic, path, self.context.virtual_url_path())
         anno = IAnnotations(self.context)
-        if not anno.get('an.other.graphic.Graphical'):
-            anno['an.other.graphic.Graphical'] = PersistentDict()
+        if not anno.get('bit.plone.graphic.Graphical'):
+            anno['bit.plone.graphic.Graphical'] = PersistentDict()
         if path is not None:
-            anno['an.other.graphic.Graphical'][graphic] = path
+            anno['bit.plone.graphic.Graphical'][graphic] = path
         else:
-            del anno['an.other.graphic.Graphical'][graphic]
+            del anno['bit.plone.graphic.Graphical'][graphic]
 
         self.context.reindexObject(idxs=['getGraphics'])
 
@@ -234,8 +231,7 @@ class GraphicalArchetype(Graphical):
 
     def graphicKeys(self, expand=True):
         anno = IAnnotations(self.context)
-        graphics = anno.get('an.other.graphic.Graphical')\
-            or anno.get(ANNOGRAPHICS) or anno.get('GRAPHICS')
+        graphics = anno.get('bit.plone.graphic.Graphical')
         keys = set()
         if expand:
             [keys.add(k) for k in self._default_sizes]
@@ -245,8 +241,7 @@ class GraphicalArchetype(Graphical):
 
     def getRawGraphic(self, graphicid, acquire=False, expand=True):
         graphics = IAnnotations(
-            self.context).get('an.other.graphic.Graphical')\
-            or IAnnotations(self.context).get(ANNOGRAPHICS)
+            self.context).get('bit.plone.graphic.Graphical')
         graphic = None
         if graphics:
             graphic = graphics.get(graphicid) or None
@@ -277,8 +272,7 @@ class GraphicalNewsItem(GraphicalArchetype):
 
     def graphicKeys(self, expand=True):
         anno = IAnnotations(self.context)
-        graphics = anno.get('an.other.graphic.Graphical')\
-            or anno.get(ANNOGRAPHICS) or anno.get('GRAPHICS')
+        graphics = anno.get('bit.plone.graphic.Graphical')
         keys = set()
         news_image = self.context.Schema()['image'].get(self.context)
         if not graphics and not news_image:
