@@ -17,36 +17,9 @@ from p4a.subtyper.interfaces import ISubtyper
 
 from bit.content.graphic.interfaces import\
     IGraphical, ICustomGraphic, IGraphicallyCustomized
-from bit.plone.graphic.browser.interfaces import IGraphicAssociation
+
 
 ANNOGRAPHICS = 'bit.plone.graphic.Graphical'
-
-
-class GraphicAssociation(object):
-    implements(IGraphicAssociation)
-    title = u'association'
-
-    def __init__(self):
-        pass
-
-    def update(self, name, assoc):
-        self.name = name
-        self.association = assoc
-        return self
-
-registerFactoryAdapter(IGraphicAssociation, GraphicAssociation)
-
-
-class GraphicsForm(object):
-
-    def __init__(self, context, *largs, **kwargs):
-        self.context = context
-        graphical = IGraphical(self.context, None)
-        self.graphics = '\n'.join(graphical.getRawList())
-        self.custom_graphic = ICustomGraphic(self.context).getImage()
-        self.graphic_associations = [
-            GraphicAssociation().update(unicode(x), unicode(y or ''))
-            for x, y in graphical.getGraphics().items()]
 
 
 class CustomGraphic(object):
@@ -222,99 +195,3 @@ class Graphical(object):
 
         self.context.reindexObject(idxs=['getGraphics'])
 
-
-class GraphicalArchetype(Graphical):
-
-    def _path(self, ob):
-        portal = ob.portal_url.getPortalObject()
-        return '/'.join(ob.getPhysicalPath()[len(portal.getPhysicalPath()):])
-
-    def graphicKeys(self, expand=True):
-        anno = IAnnotations(self.context)
-        graphics = anno.get('bit.plone.graphic.Graphical')
-        keys = set()
-        if expand:
-            [keys.add(k) for k in self._default_sizes]
-        if graphics:
-            [keys.add(k) for k in graphics.keys()]
-        return list(keys)
-
-    def getRawGraphic(self, graphicid, acquire=False, expand=True):
-        graphics = IAnnotations(
-            self.context).get('bit.plone.graphic.Graphical')
-        graphic = None
-        if graphics:
-            graphic = graphics.get(graphicid) or None
-            if not graphic and 'base' in graphics.keys() and expand:
-                graphic = '%s_%s' % (graphics.get('base'), graphicid)
-        if not graphic:
-            if graphicid in self._default_sizes:
-                if self.context.Schema()['image'].get(self.context):
-                    path = self._path(self.context)
-                    if path.endswith('/'):
-                        path = path[:-1]
-                    graphic = 'image_%s' % graphicid
-        return graphic and graphic.strip() or None
-
-
-class GraphicalImage(GraphicalArchetype):
-
-    def getGraphic(self, graphic, acquire=False):
-        if graphic in self._default_sizes:
-            path = self._path(self.context)
-            if path.endswith('/'):
-                path = path[:-1]
-            return 'image_%s' % graphic
-        return ''
-
-
-class GraphicalNewsItem(GraphicalArchetype):
-
-    def graphicKeys(self, expand=True):
-        anno = IAnnotations(self.context)
-        graphics = anno.get('bit.plone.graphic.Graphical')
-        keys = set()
-        news_image = self.context.Schema()['image'].get(self.context)
-        if not graphics and not news_image:
-            return []
-        if expand:
-            [keys.add(k) for k in self._default_sizes]
-        if graphics:
-            [keys.add(k) for k in graphics.keys()]
-        return list(keys)
-
-    def graphicList(self):
-        return ['%s:%s' % (x, self.getRawGraphic(x))
-                for x in self.graphicKeys()]
-
-    def getGraphic(self, graphic, acquire=False):
-        if graphic in self._default_sizes:
-            if self.context.Schema()['image'].get(self.context):
-                path = self._path(self.context)
-                if path.endswith('/'):
-                    path = path[:-1]
-                return 'image_%s' % graphic
-        return ''
-
-
-class GraphicalVideoFile(Graphical):
-
-    def getGraphic(self, graphic, acquire=False):
-        if graphic in self._default_sizes:
-            path = self._path(self.context)
-            if path.endswith('/'):
-                path = path[:-1]
-            return '%s/viewimage' % path\
-                + '?field=p4a.video.interfacesa:IVideo:video_image'
-        return ''
-
-
-class SubtypeIcon(object):
-    def __init__(self, context):
-        self.context = context
-
-    def getIcon(self):
-        subtype = getUtility(ISubtyper).existing_type(self.context)
-        if subtype and subtype.descriptor:
-            if getattr(subtype.descriptor, 'icon', None):
-                return subtype.descriptor.icon

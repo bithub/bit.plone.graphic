@@ -33,6 +33,8 @@ class ReindexGraphicsView(FiveView):
                     graphic = anno['an.other.graphic.CustomGraphic']
                     anno['bit.plone.graphic.CustomGraphic'] = graphic
                     del anno['an.other.graphic.CustomGraphic']
+                    if 'things.republic.interfaces.IGraphical' in anno.keys():
+                        del anno['things.republic.interfaces.IGraphical']
 
                 elif 'things.republic.interfaces.IGraphical' in anno.keys():
                     graphic = anno['things.republic.interfaces.IGraphical']

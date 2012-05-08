@@ -5,7 +5,26 @@
            i18n_domain="bit.plone.graphic"
            >
 
-  <include package="bit.content.graphic" />
+  <adapter for="Products.Archetypes.interfaces.base.IBaseObject"
+           provides="bit.content.graphic.interfaces.ICustomGraphic"
+           factory=".graphics.PloneCustomGraphic"
+	   />
+
+  <adapter for="Products.Archetypes.interfaces.base.IBaseObject"
+           provides="bit.content.graphic.interfaces.IGraphical"
+           factory=".graphics.PloneGraphical"
+           />
+
+  <adapter for="Products.ATContentTypes.interface.image.IATImage"
+           provides="bit.content.graphic.interfaces.IGraphical"
+           factory=".graphics.PloneImageGraphical"
+           />
+
+  <adapter for="Products.ATContentTypes.interface.news.IATNewsItem"
+           provides="bit.content.graphic.interfaces.IGraphical"
+           factory=".graphics.PloneNewsItemGraphical"
+           />
+
 
   <include package="plone.namedfile" />
   <include package="plone.formwidget.namedfile" />
@@ -14,20 +33,9 @@
 
   <include package=".cp" />
 
-  <adapter 
-     factory=".graphicalimage.GraphicalImage"
-     for="*"
-     />
+  <adapter factory='.indexers.getGraphics' name='graphics' />
 
-  <adapter 
-     factory=".graphicalimage.Thumbnailer"
-     for="*"
-     />
 
-  <adapter factory='.indexers.getGraphics' name='getGraphics' />
-  <adapter factory='.indexers.getThumbnail' name='Thumbnail' />
-
-  <include package=".adapters" />
   <include package=".browser" />
 
   <include file="./profiles.zcml" />  

@@ -33,7 +33,7 @@ class CustomGraphicTraverser(BrowserView):
         return self
 
     def __call__(self):
-        graphic = ICustomGraphic(self.context).getImage(self.name)
+        graphic = ICustomGraphic(self.context).get_image(self.name)
         if graphic:
             set_headers(graphic, self.request.response)
             return stream_data(graphic)

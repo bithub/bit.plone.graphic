@@ -5,21 +5,6 @@
 	   i18n_domain="bit.plone.graphic"
 	   >
 
-  <adapter for="zope.annotation.interfaces.IAnnotatable"
-           provides="bit.plone.graphic.browser.interfaces.IGraphicsForm"
-           factory=".GraphicsForm"
-	   />
-
-  <adapter for="Products.ATContentTypes.interface.image.IATImage"
-           provides="bit.content.graphic.interfaces.IGraphical"
-           factory=".GraphicalImage"
-           />
-
-  <adapter for="Products.ATContentTypes.interface.news.IATNewsItem"
-           provides="bit.content.graphic.interfaces.IGraphical"
-           factory=".GraphicalNewsItem"
-           />
-
 <!--
 
   <adapter for="p4a.subtyper.interfaces.ISubtyped"

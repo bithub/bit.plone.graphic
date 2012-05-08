@@ -28,6 +28,7 @@ setup(name='bit.plone.graphic',
           'plone.formwidget.namedfile',
           'z3c.blobfile',
           'bit.content.graphic',
+          'Products.Archetypes',
       ],
       entry_points="""
       # -*- Entry points: -*-

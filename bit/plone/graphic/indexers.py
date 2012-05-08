@@ -11,7 +11,7 @@ def getIcon(obj, **kwa):
     graphical = IGraphical(obj, None)
     icon = ''
     if graphical:
-        icon = graphical.getGraphic('icon')
+        icon = graphical.get_graphic('icon')
     if not icon:
         iconic = IIconic(obj, None)
         if iconic:
@@ -24,10 +24,10 @@ def getIcon(obj, **kwa):
 @indexer(I)
 def getGraphics(obj, **kwa):
     graphical = IGraphical(obj, None)
-    return graphical and graphical.graphicList()
+    return graphical and graphical.graphic_list()
 
 
 @indexer(I)
 def getThumbnail(obj, **kwargs):
     graphical = IGraphical(obj, None)
-    return graphical and graphical.getGraphic('thumb') or None
+    return graphical and graphical.get_graphic('thumb') or None

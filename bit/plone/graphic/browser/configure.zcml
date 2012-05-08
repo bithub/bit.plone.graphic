@@ -7,6 +7,13 @@
            >
   <include package=".resources" />  
 
+
+  <adapter 
+      for="Products.Archetypes.interfaces.base.IBaseObject"
+      provides="bit.plone.graphic.browser.interfaces.IGraphicsForm"
+      factory=".graphicsform.GraphicsFormAdapter"
+      />
+  
   <browser:page
      for="*"
      name="manage-graphics"
