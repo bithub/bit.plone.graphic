@@ -15,8 +15,8 @@ from Products.CMFCore.utils import getToolByName
 
 from p4a.subtyper.interfaces import ISubtyper
 
-from bit.plone.graphic.interfaces import\
-    IGraphicalRepresentation, ICustomGraphic, IGraphicallyCustomized
+from bit.content.graphic.interfaces import\
+    IGraphical, ICustomGraphic, IGraphicallyCustomized
 from bit.plone.graphic.browser.interfaces import IGraphicAssociation
 
 ANNOGRAPHICS = 'bit.plone.graphic.Graphical'
@@ -41,7 +41,7 @@ class GraphicsForm(object):
 
     def __init__(self, context, *largs, **kwargs):
         self.context = context
-        graphical = IGraphicalRepresentation(self.context, None)
+        graphical = IGraphical(self.context, None)
         self.graphics = '\n'.join(graphical.getRawList())
         self.custom_graphic = ICustomGraphic(self.context).getImage()
         self.graphic_associations = [

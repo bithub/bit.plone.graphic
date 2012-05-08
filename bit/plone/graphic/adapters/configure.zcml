@@ -10,23 +10,13 @@
            factory=".GraphicsForm"
 	   />
 
-  <adapter for="zope.annotation.interfaces.IAnnotatable"
-           provides="bit.plone.graphic.interfaces.ICustomGraphic"
-           factory=".CustomGraphic"
-	   />
-
-  <adapter for="zope.annotation.interfaces.IAnnotatable"
-           provides="bit.plone.graphic.interfaces.IGraphical"
-           factory=".Graphical"
-           />
-
   <adapter for="Products.ATContentTypes.interface.image.IATImage"
-           provides="bit.plone.graphic.interfaces.IGraphical"
+           provides="bit.content.graphic.interfaces.IGraphical"
            factory=".GraphicalImage"
            />
 
   <adapter for="Products.ATContentTypes.interface.news.IATNewsItem"
-           provides="bit.plone.graphic.interfaces.IGraphical"
+           provides="bit.content.graphic.interfaces.IGraphical"
            factory=".GraphicalNewsItem"
            />
 

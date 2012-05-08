@@ -5,6 +5,8 @@
            i18n_domain="bit.plone.graphic"
            >
 
+  <include package="bit.content.graphic" />
+
   <include package="plone.namedfile" />
   <include package="plone.formwidget.namedfile" />
 

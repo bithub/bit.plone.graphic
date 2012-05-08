@@ -34,10 +34,10 @@ class ReindexGraphicsView(FiveView):
                     anno['bit.plone.graphic.CustomGraphic'] = graphic
                     del anno['an.other.graphic.CustomGraphic']
 
-                elif 'things.republic.interfaces.IGraphicalRepresentation' in anno.keys():
-                    graphic = anno['things.republic.interfaces.IGraphicalRepresentation']
+                elif 'things.republic.interfaces.IGraphical' in anno.keys():
+                    graphic = anno['things.republic.interfaces.IGraphical']
                     anno['bit.plone.graphic.Graphical'] = graphic
-                    del anno['things.republic.interfaces.IGraphicalRepresentation']
+                    del anno['things.republic.interfaces.IGraphical']
                 obj.reindexObject(idxs=['getGraphics', 'getIcon', 'Thumbnail'])
             except:
                 print 'FAIL: %s' % path

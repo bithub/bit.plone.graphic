@@ -15,7 +15,7 @@ Let's get some imports
 
     >>> from zope.component import getMultiAdapter, getAdapters
     >>> from trinity.content.copy.interfaces import ICopier, ICopyable
-    >>> from an.other.graphic.interfaces import IGraphicalRepresentation,ICustomGraphic
+    >>> from an.other.graphic.interfaces import IGraphical,ICustomGraphic
 
 And create a couple of folders to play with and create a copier
 
@@ -37,14 +37,14 @@ Let's check that we got the right kind of adapter
 Graphical associations
 ----------------------
 
-    >>> src_graphics = IGraphicalRepresentation(srcfolder)
+    >>> src_graphics = IGraphical(srcfolder)
     >>> src_graphics.setGraphic('foo', 'bar.png')
     >>> src_graphics.setGraphic('base', 'baz.png')
     >>> src_graphics.setGraphic('baz', '/srcfolder/foo.png')
 
     >>> copier.copy()
 
-    >>> target_graphics = IGraphicalRepresentation(targetfolder)
+    >>> target_graphics = IGraphical(targetfolder)
     >>> graphics = target_graphics.getGraphics()
 
     >>> graphics['foo']

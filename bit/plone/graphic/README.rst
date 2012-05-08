@@ -11,7 +11,7 @@ And get some tools
   >>> from zope.component import getMultiAdapter, getUtility
   >>> from zope.browser.interfaces import IBrowserView
   >>> from zope.publisher.browser import TestRequest
-  >>> from bit.plone.graphic.interfaces import IGraphicalRepresentation, IGraphicallyCustomized, ICustomGraphic
+  >>> from bit.content.graphic.interfaces import IGraphical, IGraphicallyCustomized, ICustomGraphic
 
 And set some stuff up!
 

@@ -2,8 +2,8 @@ from z3c.form import form, field
 
 from plone.z3cform.layout import wrap_form
 
-from bit.plone.graphic.interfaces import\
-    IGraphicalRepresentation, ICustomGraphic
+from bit.content.graphic.interfaces import\
+    IGraphical, ICustomGraphic
 from bit.plone.graphic.browser.interfaces import IGraphicsForm
 
 
@@ -29,7 +29,7 @@ class GraphicsForm(form.EditForm):
 
     def _setGraphics(self, data):
         graphics = data.get('graphic_associations', '') or []
-        graphical = IGraphicalRepresentation(self.context)
+        graphical = IGraphical(self.context)
         if graphical:
             graphical.clearGraphics()
             [graphical.setGraphic(g.name, g.association or '')

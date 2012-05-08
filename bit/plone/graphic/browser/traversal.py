@@ -6,7 +6,7 @@ from plone.namedfile.utils import set_headers, stream_data
 
 from Products.Five.browser import BrowserView
 
-from bit.plone.graphic.interfaces import\
+from bit.content.graphic.interfaces import\
     IGraphicallyCustomized, ICustomGraphic
 
 

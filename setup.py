@@ -27,6 +27,7 @@ setup(name='bit.plone.graphic',
           'plone.namedfile',
           'plone.formwidget.namedfile',
           'z3c.blobfile',
+          'bit.content.graphic',
       ],
       entry_points="""
       # -*- Entry points: -*-

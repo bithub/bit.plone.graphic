@@ -3,16 +3,16 @@ from zope.interface import implements
 from trinity.content.copy.interfaces import ICopyable
 from trinity.content.copy.copier import Copyable
 
-from bit.plone.graphic.interfaces import\
-    IGraphicalRepresentation, ICustomGraphic
+from bit.content.graphic.interfaces import\
+    IGraphical, ICustomGraphic
 
 
 class GraphicsCopier(Copyable):
     implements(ICopyable)
 
     def copy(self, name):
-        source_graphics = IGraphicalRepresentation(self.source)
-        target_graphics = IGraphicalRepresentation(self.target)
+        source_graphics = IGraphical(self.source)
+        target_graphics = IGraphical(self.target)
 
         for k in source_graphics.graphicKeys(expand=False):
             v = source_graphics.getRawGraphic(k, expand=False)
