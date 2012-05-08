@@ -159,30 +159,3 @@ class PloneNewsItemGraphical(ArchetypeGraphical):
             if self.context.Schema()['image'].get(self.context):
                 return 'image_%s' % graphic
         return ''
-
-
-
-
-######
-
-class GraphicalVideoFile(PloneGraphical):
-
-    def get_graphic(self, graphic, acquire=False):
-        if graphic in self._default_sizes:
-            path = self._path(self.context)
-            if path.endswith('/'):
-                path = path[:-1]
-            return '%s/viewimage' % path\
-                + '?field=p4a.video.interfacesa:IVideo:video_image'
-        return ''
-
-
-class SubtypeIcon(object):
-    def __init__(self, context):
-        self.context = context
-
-    def getIcon(self):
-        subtype = getUtility(ISubtyper).existing_type(self.context)
-        if subtype and subtype.descriptor:
-            if getattr(subtype.descriptor, 'icon', None):
-                return subtype.descriptor.icon

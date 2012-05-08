@@ -1,11 +1,10 @@
 import os
 import logging
 
-from zope.annotation.interfaces import IAnnotations
-
 from Products.Five import BrowserView as FiveView
 
 log = logging.getLogger('bit.plone.graphic')
+
 
 class ReindexGraphicsView(FiveView):
 
@@ -21,7 +20,6 @@ class ReindexGraphicsView(FiveView):
         i = 1
         for path in content:
             obj = self.context.restrictedTraverse(path)
-            log.warn('reindexing graphics for %s' % path)
-            anno = IAnnotations(obj)
+            log.warn('(%s/%s) reindexing graphics for %s' % (i, total, path))
             obj.reindexObject(idxs=['graphics', 'getIcon'])
             i += 1

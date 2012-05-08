@@ -1,7 +1,5 @@
 from zope.interface import Interface as I
 
-from bit.content.graphic.interfaces import IGraphicallyCustomized
-
 
 class IThumbnailer(I):
 
