@@ -2,28 +2,47 @@
            xmlns:five="http://namespaces.zope.org/five"
            xmlns:browser="http://namespaces.zope.org/browser"
            xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+	   xmlns:zcml="http://namespaces.zope.org/zcml"
            i18n_domain="bit.plone.graphic"
            >
 
-  <adapter for="Products.Archetypes.interfaces.base.IBaseObject"
-           provides="bit.content.graphic.interfaces.ICustomGraphic"
-           factory=".graphics.PloneCustomGraphic"
-	   />
+  <adapter
+      for="Products.Archetypes.interfaces.base.IBaseObject"
+      provides="bit.content.graphic.interfaces.ICustomGraphic"
+      factory=".graphics.PloneCustomGraphic"
+      />
 
-  <adapter for="Products.Archetypes.interfaces.base.IBaseObject"
-           provides="bit.content.graphic.interfaces.IGraphical"
-           factory=".graphics.PloneGraphical"
-           />
+  <adapter
+      for="Products.Archetypes.interfaces.base.IBaseObject"
+      provides="bit.content.graphic.interfaces.IGraphical"
+      factory=".graphics.PloneGraphical"
+      />
 
-  <adapter for="Products.ATContentTypes.interface.image.IATImage"
-           provides="bit.content.graphic.interfaces.IGraphical"
-           factory=".graphics.PloneImageGraphical"
-           />
+  <adapter
+      for="Products.ATContentTypes.interface.image.IATImage"
+      provides="bit.content.graphic.interfaces.IGraphical"
+      factory=".graphics.PloneImageGraphical"
+      />
 
-  <adapter for="Products.ATContentTypes.interface.news.IATNewsItem"
-           provides="bit.content.graphic.interfaces.IGraphical"
-           factory=".graphics.PloneNewsItemGraphical"
-           />
+  <adapter
+      for="Products.ATContentTypes.interface.news.IATNewsItem"
+      provides="bit.content.graphic.interfaces.IGraphical"
+      factory=".graphics.PloneNewsItemGraphical"
+      />
+
+  <adapter
+      for="Products.Archetypes.interfaces.base.IBaseObject"
+      factory='.indexers.getIcon'
+      name='getIcon' />
+
+  <adapter
+      factory='.indexers.getGraphics'
+      name='graphics' />
+
+
+  <configure zcml:condition="installed bit.plone.cp">
+    <include package=".cp" />
+  </configure>
 
 
   <include package="plone.namedfile" />
@@ -31,18 +50,11 @@
 
   <include file="./permissions.zcml" />
 
-  <include package=".cp" />
-
-  <adapter factory='.indexers.getGraphics' name='graphics' />
 
 
   <include package=".browser" />
 
-  <include file="./profiles.zcml" />  
-
-
-
-
+  <include file="./profiles.zcml" />
 
 </configure>
 

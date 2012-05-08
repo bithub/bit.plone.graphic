@@ -36,7 +36,7 @@ class GraphicCP(ControlPanel):
         for result in results:
             item = self.get_item(result)
             if item:
-                for g in result.getGraphics:
+                for g in result.graphics:
                     graph = ':'.join(g.split(':')[1:])
                     if graph.startswith('/'):
                         if _path(
@@ -48,10 +48,10 @@ class GraphicCP(ControlPanel):
 
     def get_item(self, result):
         item = super(self.__class__, self).get_item(result)
-        item['graphics'] = result.getGraphics
+        item['graphics'] = result.graphics
         item['broken_graphics'] = False
 
-        for g in result.getGraphics:
+        for g in result.graphics:
             if g.startswith('thumb:'):
                 thumb = g[len('thumb:'):]
                 if not thumb.startswith('/')\
@@ -63,7 +63,7 @@ class GraphicCP(ControlPanel):
                             thumb))
                 item['thumb'] = thumb
                 break
-        for g in result.getGraphics:
+        for g in result.graphics:
             if g.startswith('original:'):
                 original = g[len('original:'):]
                 if not original.startswith('/')\

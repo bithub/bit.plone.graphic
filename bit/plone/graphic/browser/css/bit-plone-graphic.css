@@ -7,7 +7,7 @@ display: inline;
 
 /* manage graphics text fields */
 
-.template-manage-graphics .multi-widget .row .multi-widget-checkbox{
+.template-manage-graphics .multi-widget-field .multidd-widget-checkbox{
 
     width: 2em;
     height: 2em;
@@ -17,14 +17,23 @@ display: inline;
 }
 
 
-.template-manage-graphics form .row .field{
+.template-manage-graphics form .multi-widget-field{
     border: dashed #ccc 1px;
     background-color:#ddd;
     padding: 1em;
 margin: 1em;
 }
 
-.template-manage-graphics form .row .row{
+.template-manage-graphics form .multi-widget-field>*
+{
+  display: inline-block;
+  padding:.3em;
+  float: none;
+  clear: none;
+  }
+
+.template-manage-graphics form  .multi-widget-field
+{
     border:solid #aaa 1px;
     background-color:#eee;
     margin: .7em 0em;
@@ -35,9 +44,10 @@ margin: 1em;
     height: 2em;
 }
 
-.template-manage-graphics form .row .row .label{
-    padding-right:0;
-display: none;
+.template-manage-graphics form  .multi-widget-field label
+{
+  padding-right:0;
+  display: none;
 }
 
 
@@ -51,15 +61,14 @@ width: 30em;
 
 
 
-.template-manage-graphics .multi-widget .row .multi-widget-checkbox input{
+.template-manage-graphics .multi-widget .multi-widget-field .multi-widget-checkbox input{
     float:none;
 }
 
 
 .template-manage-graphics .multi-widget .object-widget .label,
-.template-manage-graphics .multi-widget .object-widget .widget{
-    float:left;
-    padding:.3em;
+.template-manage-graphics .multi-widget .object-widget .object-widget-field
+{
 }
 
 .template-manage-graphics .multi-widget .widget .label,
@@ -68,5 +77,9 @@ width: 30em;
 }
 
 
+.template-manage-graphics .multi-widget-buttons
+{ 
+clear: both;
+ }
 
 

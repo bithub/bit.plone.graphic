@@ -1,9 +1,11 @@
 import os
+import logging
 
 from zope.annotation.interfaces import IAnnotations
 
 from Products.Five import BrowserView as FiveView
 
+log = logging.getLogger('bit.plone.graphic')
 
 class ReindexGraphicsView(FiveView):
 
@@ -18,29 +20,8 @@ class ReindexGraphicsView(FiveView):
         total = len(content)
         i = 1
         for path in content:
-            print 'traversing to object %s (%s/%s)' % (path, i, total)
-            try:
-                obj = self.context.restrictedTraverse(path)
-                print 'reindexing graphics for %s' % path
-                anno = IAnnotations(obj)
-
-                if 'an.other.graphic.Graphical' in anno.keys():
-                    graphic = anno['an.other.graphic.Graphical']
-                    anno['bit.plone.graphic.Graphical'] = graphic
-                    del anno['an.other.graphic.Graphical']
-
-                if 'an.other.graphic.CustomGraphic' in anno.keys():
-                    graphic = anno['an.other.graphic.CustomGraphic']
-                    anno['bit.plone.graphic.CustomGraphic'] = graphic
-                    del anno['an.other.graphic.CustomGraphic']
-                    if 'things.republic.interfaces.IGraphical' in anno.keys():
-                        del anno['things.republic.interfaces.IGraphical']
-
-                elif 'things.republic.interfaces.IGraphical' in anno.keys():
-                    graphic = anno['things.republic.interfaces.IGraphical']
-                    anno['bit.plone.graphic.Graphical'] = graphic
-                    del anno['things.republic.interfaces.IGraphical']
-                obj.reindexObject(idxs=['getGraphics', 'getIcon', 'Thumbnail'])
-            except:
-                print 'FAIL: %s' % path
+            obj = self.context.restrictedTraverse(path)
+            log.warn('reindexing graphics for %s' % path)
+            anno = IAnnotations(obj)
+            obj.reindexObject(idxs=['graphics', 'getIcon'])
             i += 1

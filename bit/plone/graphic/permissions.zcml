@@ -2,12 +2,12 @@
            xmlns:five="http://namespaces.zope.org/five"
            xmlns:browser="http://namespaces.zope.org/browser"
 	   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-	   i18n_domain="trinity.common"
+	   i18n_domain="bit.plone.graphic"
 	   >
 
   <permission
       id="bit.plone.graphic.ManageGraphics"
       title="Manage Graphics"
-      />    
+      />
 
 </configure>

@@ -8,7 +8,6 @@ setup(name='bit.plone.graphic',
       description="Annotated graphics",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
-
       classifiers=[
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
@@ -16,7 +15,7 @@ setup(name='bit.plone.graphic',
       keywords='',
       author='Ryan Northey',
       author_email='ryan@3ca.org.uk',
-      url='',
+      url='http://github.com/bithub/bit.plone.graphic',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['bit', 'bit.plone'],
@@ -27,10 +26,7 @@ setup(name='bit.plone.graphic',
           'plone.namedfile',
           'plone.formwidget.namedfile',
           'z3c.blobfile',
-          'bit.content.graphic',
           'Products.Archetypes',
+          'bit.content.graphic',
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
       )

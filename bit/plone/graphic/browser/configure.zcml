@@ -1,12 +1,11 @@
-<configure xmlns="http://namespaces.zope.org/zope"
-           xmlns:five="http://namespaces.zope.org/five"
-           xmlns:browser="http://namespaces.zope.org/browser"
-	   xmlns:z3c="http://namespaces.zope.org/z3c"	
-           xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-           i18n_domain="bit.plone.graphic"
-           >
-  <include package=".resources" />  
-
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:z3c="http://namespaces.zope.org/z3c"	
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="bit.plone.graphic"
+    >
 
   <adapter 
       for="Products.Archetypes.interfaces.base.IBaseObject"
@@ -28,6 +27,16 @@
      permission="zope2.View"
      />
 
+  <browser:resource
+      name="manage-graphics.png"
+      image="images/manage-graphics.png"
+      />
+
+  <browser:resource
+      name="bit-plone-graphic.css"
+      image="css/bit-plone-graphic.css"
+      />
+
   <browser:page
       for="*"
       name="reindex_graphics"
@@ -45,4 +54,3 @@
       /> 
 
 </configure>
-

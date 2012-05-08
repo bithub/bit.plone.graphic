@@ -50,7 +50,7 @@ We can get a graphical adapter for the folder
     >>> from bit.content.graphic.interfaces import IGraphical
     >>> graphical = IGraphical(folder)
     >>> graphical
-    <bit.plone.graphic.adapters.Graphical ...>
+    <bit.plone.graphic.graphics.PloneGraphical ...>
 
 Currently it has not associations
 
@@ -66,7 +66,7 @@ The folder doesnt isnt graphically customized
 
 Now lets give the folder a custom graphic
 
-    >>> ICustomGraphic(folder).setImage(open('%s/test.png' % TEST_DIR, 'r'))
+    >>> ICustomGraphic(folder).set_image(open('%s/test.png' % TEST_DIR, 'r'))
     >>> IGraphicallyCustomized.providedBy(folder)
     True
 
@@ -74,7 +74,7 @@ We can get the custom graphic
 
     >>> custom_graphic = ICustomGraphic(folder)
     >>> custom_graphic
-    <bit.plone.graphic.adapters.CustomGraphic ...>
+    <bit.plone.graphic.graphics.PloneCustomGraphic ...>
 
 And from that we can get the image itself
 
@@ -113,7 +113,7 @@ The object has the graphics items stored in its catalog record
     >>> portal_catalog = getToolByName(layer['portal'], 'portal_catalog')
 
     >>> record = portal_catalog(path='/plone/folder')[0]
-    >>> sorted(record.getGraphics) == sorted(graphical.graphic_list())
+    >>> sorted(record.graphics) == sorted(graphical.graphic_list())
     True
 
 
@@ -135,7 +135,7 @@ Now lets add a news item to our folder
 
     >>> graphical_news_item = IGraphical(news_item)
     >>> graphical_news_item
-    <bit.plone.graphic.adapters.GraphicalNewsItem ...>
+    <bit.plone.graphic.graphics.PloneNewsItemGraphical ...>
 
 The news item doesnt have an image yet
 
@@ -145,13 +145,12 @@ The news item doesnt have an image yet
 So lets add one and check the news item has the correct associations
 
     >>> news_item.setImage(open('%s/test.png' % TEST_DIR, 'r'))
+
     >>> sorted(graphical_news_item.graphic_ids())
     ['large', 'mini', 'original', 'preview', 'thumb', 'tile']
 
     >>> sorted(graphical_news_item.graphic_list())
-    ['large:/folder/news_item/image_large', 'mini:/folder/news_item/image_mini', 'original:/folder/news_item/image_original', 'preview:/folder/news_item/image_preview', 'thumb:/folder/news_item/image_thumb', 'tile:/folder/news_item/image_tile']
-
-
+    ['large:image_large', 'mini:image_mini', 'original:image_original', 'preview:image_preview', 'thumb:image_thumb', 'tile:image_tile']
 
 
     >>> # browser.open('http://nohost/plone/news_item/custom_graphic/image')

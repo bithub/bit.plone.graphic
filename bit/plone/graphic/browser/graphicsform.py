@@ -1,3 +1,5 @@
+from zope.interface import implements
+
 from z3c.form import form, field
 from z3c.form.object import registerFactoryAdapter
 
@@ -28,8 +30,8 @@ class GraphicsFormAdapter(object):
     def __init__(self, context, *largs, **kwargs):
         self.context = context
         graphical = IGraphical(self.context, None)
-        self.graphics = '\n'.join(graphical.getRawList())
-        self.custom_graphic = ICustomGraphic(self.context).getImage()
+        self.graphics = '\n'.join(graphical.get_raw_list())
+        self.custom_graphic = ICustomGraphic(self.context).get_image()
         self.graphic_associations = [
             GraphicAssociation().update(unicode(x), unicode(y or ''))
             for x, y in graphical.get_graphics().items()]
@@ -40,8 +42,7 @@ class GraphicsForm(form.EditForm):
     label = "Manage graphics associated with this object"
 
     def applyChanges(self, data):
-        ICustomGraphic(self.context).setImage(data['custom_graphic'])
-        #import pdb; pdb.set_trace()
+        ICustomGraphic(self.context).set_image(data['custom_graphic'])
         self._set_graphics(data)
         self.context.reindexObject()
         return self.context.REQUEST.response.redirect(
@@ -62,7 +63,7 @@ class GraphicsForm(form.EditForm):
             graphical.clear_graphics()
             [graphical.set_graphic(g.name, g.association or '')
              for g in graphics if g.name]
-        if not 'base' in graphical.graphicKeys(expand=False)\
+        if not 'base' in graphical.graphic_ids(expand=False)\
                 and data.get('custom_graphic'):
             graphical.set_graphic('base', 'custom_graphic/image')
 

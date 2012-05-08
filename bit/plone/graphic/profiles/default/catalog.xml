@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <object name="portal_catalog" meta_type="Plone Catalog Tool">
 
-  <index name="getGraphics" meta_type="FieldIndex">
-    <indexed_attr value="getGraphics"/>
+  <index name="graphics" meta_type="FieldIndex">
+    <indexed_attr value="graphics"/>
   </index>    
 
-  <column value="getGraphics"/>  
+  <column value="graphics"/>  
 
 </object>

@@ -9,7 +9,7 @@ from plone.namedfile.interfaces import INamedBlobImage
 from Products.CMFCore.utils import getToolByName
 
 from bit.content.graphic.interfaces import\
-    ICustomGraphic, IGraphicallyCustomized
+    ICustomGraphic, IGraphicallyCustomized, IGraphical
 from bit.content.graphic.graphics import CustomGraphic, Graphical
 
 
@@ -55,7 +55,7 @@ class PloneCustomGraphic(CustomGraphic):
             del IAnnotations(self.context)[self._annotation]
         if image and not IGraphicallyCustomized.providedBy(self.context):
             alsoProvides(self.context, IGraphicallyCustomized)
-         if image:
+        if image:
             IAnnotations(
                 self.context)[self._annotation] = PersistentDict()
             IAnnotations(
@@ -63,14 +63,14 @@ class PloneCustomGraphic(CustomGraphic):
                 self._annotation)['original'] = image
 
 
-class PloneGraphical(object):
+class PloneGraphical(Graphical):
     implements(IGraphical)
 
     _annotation = 'bit.plone.graphic.Graphical'
 
     def get_graphic(self, graphicid, acquire=False, ctx=None):
         ctx = ctx or self.context
-        res = super(Graphical, self).get_graphic(graphicid, acquire, ctx)
+        res = super(PloneGraphical, self).get_graphic(graphicid, acquire, ctx)
         if not res and acquire:
             try:
                 return self.get_graphic(
@@ -93,11 +93,17 @@ class PloneGraphical(object):
         return res
 
     def clear_graphics(self):
-        super(Graphical, self).clear_graphics()
+        super(PloneGraphical, self).clear_graphics()
         self.context.reindexObject(idxs=['graphics'])
 
     def set_graphic(self, graphic, path=None):
-        super(Graphical, self).set_graphic(graphic, path)
+        anno = IAnnotations(self.context)
+        if not anno.get(self._annotation):
+            anno[self._annotation] = PersistentDict()
+        if path is not None:
+            anno[self._annotation][graphic] = path
+        else:
+            del anno[self._annotation][graphic]
         self.context.reindexObject(idxs=['graphics'])
 
 
@@ -109,7 +115,7 @@ class ArchetypeGraphical(PloneGraphical):
 
     def get_raw_graphic(self, graphicid, acquire=False, expand=True):
         graphics = IAnnotations(
-            self.context).get('bit.plone.graphic.Graphical')
+            self.context).get(self._annotation)
         graphic = None
         if graphics:
             graphic = graphics.get(graphicid) or None
@@ -127,6 +133,12 @@ class ArchetypeGraphical(PloneGraphical):
 
 class PloneImageGraphical(ArchetypeGraphical):
 
+    def graphic_ids(self):
+        ids = set()
+        ids.update(self._default_sizes)
+        ids.update(super(PloneImageGraphical, self).graphic_ids())
+        return list(ids)
+
     def get_graphic(self, graphic, acquire=False):
         if graphic in self._default_sizes:
             return 'image_%s' % graphic
@@ -134,6 +146,13 @@ class PloneImageGraphical(ArchetypeGraphical):
 
 
 class PloneNewsItemGraphical(ArchetypeGraphical):
+
+    def graphic_ids(self):
+        ids = set()
+        if self.context.Schema()['image'].get(self.context):
+            ids.update(self._default_sizes)
+        ids.update(super(PloneNewsItemGraphical, self).graphic_ids())
+        return list(ids)
 
     def get_graphic(self, graphic, acquire=False):
         if graphic in self._default_sizes:
