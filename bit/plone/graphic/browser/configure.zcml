@@ -22,7 +22,7 @@
   
   <browser:page
      name="custom_graphic"
-     for="bit.plone.graphic.interfaces.IGraphicallyCustomized"
+     for="bit.content.graphic.interfaces.IGraphicallyCustomized"
      class=".traversal.CustomGraphicTraverser"
      permission="zope2.View"
      />
