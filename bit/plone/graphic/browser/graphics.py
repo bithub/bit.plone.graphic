@@ -19,8 +19,11 @@ class ReindexGraphicsView(FiveView):
         total = len(content)
         i = 1
         for path in content:
-            obj = self.context.restrictedTraverse(path)
-            log.warn('(%s/%s) reindexing graphics for %s' % (i, total, path))
-            print '(%s/%s) reindexing graphics for %s' % (i, total, path)
-            obj.reindexObject(idxs=['graphics', 'getIcon'])
+            try:
+                obj = self.context.restrictedTraverse(path)
+                obj.reindexObject(idxs=['graphics', 'getIcon'])
+                log.warn('(%s/%s) reindexing graphics for %s' % (i, total, path))
+                print '(%s/%s) reindexing graphics for %s' % (i, total, path)
+            except:
+                log.error('(%s/%s) FAIL: reindexing graphics for %s' % (i, total, path))
             i += 1
