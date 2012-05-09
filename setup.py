@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.7.5'
+version = '0.7.6'
 
 setup(name='bit.plone.graphic',
       version=version,
