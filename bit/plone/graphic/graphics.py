@@ -1,4 +1,4 @@
-superfrom persistent.dict import PersistentDict
+from persistent.dict import PersistentDict
 from zope.interface import alsoProvides, noLongerProvides, implements
 
 from zope.annotation.interfaces import IAnnotations
