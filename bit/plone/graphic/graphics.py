@@ -1,4 +1,4 @@
-from persistent.dict import PersistentDict
+superfrom persistent.dict import PersistentDict
 from zope.interface import alsoProvides, noLongerProvides, implements
 
 from zope.annotation.interfaces import IAnnotations
@@ -29,7 +29,7 @@ class PloneCustomGraphic(CustomGraphic):
 
     def _resize(self, original, size):
         return NamedBlobImage(
-            super(CustomGraphic, self)._resize(original, size),
+            super(PloneCustomGraphic, self)._resize(original, size),
             filename=original.filename)
 
     def set_image(self, image, contentType=None, filename=None):
